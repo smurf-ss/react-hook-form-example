@@ -38,11 +38,11 @@ const Input: React.FC<InputProps> = ({
       validate: {
         required: (value: string) => {
           if (typeof required === "object" && required.required) {
-            return textRequiredValidate(value)(required.message);
+            return textRequiredValidate(required.message)(value);
           }
 
           if (typeof required === "boolean" && required) {
-            return textRequiredValidate(value)();
+            return textRequiredValidate()(value);
           }
           return undefined;
         },

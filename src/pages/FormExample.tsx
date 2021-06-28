@@ -5,15 +5,25 @@ import Button from "@material-ui/core/Button";
 
 import Paper from "../components/Paper";
 import Input from "../components/atoms/Input";
+import { formatEmailValidate } from "../utils/hook-form-validator";
 
-function FirstNameWatched({ control }: { control: Control<FormValues> }) {
-  const firstName = useWatch({
+type FieldWatchedProps = {
+  control: Control<FormValues>;
+  name: keyof FormValues;
+};
+
+const FieldWatched = ({ control, name }: FieldWatchedProps) => {
+  const field = useWatch({
     control,
-    name: "firstName", // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
+    name, // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
     defaultValue: "", // default value before the render
   });
-  return <p>Watch FirstName: {firstName}</p>; // only re-render at the component level, when firstName changes
-}
+  return (
+    <p>
+      Watch {name}: {field}
+    </p>
+  ); // only re-render at the component level, when firstName changes
+};
 
 type FormValues = {
   firstName: string;
@@ -61,6 +71,7 @@ const FormExample = () => {
               inputProps={{
                 label: "Email",
               }}
+              validates={[formatEmailValidate()]}
             />
           </Grid>
           <Grid item xs={12}>
@@ -74,7 +85,7 @@ const FormExample = () => {
             />
           </Grid>
         </Grid>
-        <FirstNameWatched control={control} />
+        <FieldWatched control={control} name='email' />
         <Button variant='contained' color='primary' type='submit'>
           submit
         </Button>
