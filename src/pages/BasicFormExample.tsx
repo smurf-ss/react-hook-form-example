@@ -1,47 +1,40 @@
-import { useForm, useWatch, Control } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
-import Paper from "../components/Paper";
+import Select from "../components/atoms/Select";
 import Input from "../components/atoms/Input";
+import FieldWatched from "../components/hook-form/FieldWatched";
+import Paper from "../components/Paper";
+
 import { formatEmailValidate } from "../utils/hook-form-validator";
-
-type FieldWatchedProps = {
-  control: Control<FormValues>;
-  name: keyof FormValues;
-};
-
-const FieldWatched = ({ control, name }: FieldWatchedProps) => {
-  const field = useWatch({
-    control,
-    name, // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
-    defaultValue: "", // default value before the render
-  });
-  return (
-    <p>
-      Watch {name}: {field}
-    </p>
-  ); // only re-render at the component level, when firstName changes
-};
 
 type FormValues = {
   firstName: string;
   lastName: string;
   email: string;
   age: string;
+  category: string;
 };
 
-const FormExample = () => {
+const BasicFormExample = () => {
   const { handleSubmit, control } = useForm<FormValues>({
-    defaultValues: {},
+    defaultValues: { category: "" },
     mode: "onBlur",
   });
   const onSubmit = (data: FormValues) => alert(JSON.stringify(data));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Paper elevation={3} width={300}>
+      <Paper elevation={3} width={600}>
+        <Typography variant='h5' gutterBottom>
+          React Hook Form Basic
+        </Typography>
+        <Typography variant='h6' gutterBottom>
+          Integrating with Material UI
+        </Typography>
         <Grid container>
           <Grid item xs={12}>
             <Input
@@ -81,7 +74,31 @@ const FormExample = () => {
               required={true}
               inputProps={{
                 label: "Age",
+                type: "number",
               }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Select
+              control={control}
+              name='category'
+              selectProps={{
+                label: "Category",
+              }}
+              options={[
+                {
+                  label: "Category A",
+                  value: "A",
+                },
+                {
+                  label: "Category B",
+                  value: "B",
+                },
+                {
+                  label: "Category C",
+                  value: "C",
+                },
+              ]}
             />
           </Grid>
         </Grid>
@@ -89,10 +106,9 @@ const FormExample = () => {
         <Button variant='contained' color='primary' type='submit'>
           submit
         </Button>
-        {/* <input type='submit' /> */}
       </Paper>
     </form>
   );
 };
 
-export default FormExample;
+export default BasicFormExample;

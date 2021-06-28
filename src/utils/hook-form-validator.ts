@@ -12,7 +12,9 @@ export const formatEmailValidate =
     const validRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if (validRegex.test(String(value).toLowerCase())) {
+    if (!value) return undefined;
+
+    if (value && validRegex.test(String(value).toLowerCase())) {
       return undefined;
     }
 

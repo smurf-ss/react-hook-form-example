@@ -1,30 +1,42 @@
+import React from "react";
+
 import { Control, useController, Validate } from "react-hook-form";
 
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import InputLabel from "@material-ui/core/InputLabel";
-import InputMaterial, {
-  InputProps as InputMaterialProps,
-} from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import SelectMaterial, {
+  SelectProps as SelectMaterialProps,
+} from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import { textRequiredValidate } from "../../utils/hook-form-validator";
 
-type InputProps = {
+type SelectOptions = { [key: string]: any };
+
+type SelectProps = {
   name: string;
   control: Control<any>;
-  inputProps?: InputMaterialProps & { label?: string };
+  selectProps?: SelectMaterialProps & { label?: string };
   required?: boolean | { required: boolean; message: string };
   validates?: FunctionValidate[];
+  options: SelectOptions[];
+  keyNameOptionLabel?: keyof SelectOptions;
+  keyNameOptionValue?: keyof SelectOptions;
+  optionEmptyLabel?: string;
 };
 
-const Input: React.FC<InputProps> = ({
+const Select: React.FC<SelectProps> = ({
   name,
   control,
-  inputProps,
+  selectProps,
   required = false,
   validates = [],
+  keyNameOptionLabel = "label",
+  keyNameOptionValue = "value",
+  optionEmptyLabel = "None",
+  options = [],
 }) => {
-  console.log("rendering", name);
   const isRequired =
     typeof required === "boolean" ? required : required.required;
 
@@ -34,7 +46,7 @@ const Input: React.FC<InputProps> = ({
   ) as unknown as Validate<any>;
 
   const {
-    field: { ref, ...fieldInput },
+    field: { ref, ...fieldSelect },
     fieldState: { invalid, isTouched, error },
     // formState: { touchedFields, dirtyFields },
   } = useController({
@@ -63,12 +75,27 @@ const Input: React.FC<InputProps> = ({
     (!!error?.message && isTouched) || (!!error?.message && invalid);
 
   return (
-    <FormControl error={isValid} fullWidth={true}>
-      <InputLabel required={isRequired}>{inputProps?.label}</InputLabel>
-      <InputMaterial {...fieldInput} inputRef={ref} {...inputProps} />
+    <FormControl fullWidth={true} error={isValid}>
+      <InputLabel required={isRequired} shrink>
+        {selectProps?.label}
+      </InputLabel>
+      <SelectMaterial
+        {...fieldSelect}
+        inputRef={ref}
+        {...selectProps}
+        displayEmpty>
+        {!isRequired && <MenuItem value={""}>{optionEmptyLabel}</MenuItem>}
+        {options.map((option) => (
+          <MenuItem
+            value={option[keyNameOptionValue]}
+            key={option[keyNameOptionValue]}>
+            {option[keyNameOptionLabel]}
+          </MenuItem>
+        ))}
+      </SelectMaterial>
       <FormHelperText error={isValid}>{error?.message}</FormHelperText>
     </FormControl>
   );
 };
 
-export default Input;
+export default Select;
