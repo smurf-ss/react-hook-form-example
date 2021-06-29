@@ -1,23 +1,22 @@
-import Grid from "@material-ui/core/Grid";
+import { Switch } from "react-router-dom";
 
-import BasicFormExample from "./pages/BasicFormExample";
-import FieldArrayExample from "./pages/FieldArrayExample";
+import RouteWithSubRoutes from "./routes/RouteWithSubRoutes";
+
+import Drawer from "./components/Drawer";
+
+import useRoutes from "./hooks/useRoutes";
 
 function App() {
+  const routes = useRoutes({});
+
   return (
-    <Grid
-      container
-      spacing={3}
-      direction='column'
-      justify='center'
-      alignItems='center'>
-      <Grid item>
-        <BasicFormExample />
-      </Grid>
-      <Grid item>
-        <FieldArrayExample />
-      </Grid>
-    </Grid>
+    <Drawer>
+      <Switch>
+        {routes.map((route) => (
+          <RouteWithSubRoutes key={route.path} {...route} />
+        ))}
+      </Switch>
+    </Drawer>
   );
 }
 

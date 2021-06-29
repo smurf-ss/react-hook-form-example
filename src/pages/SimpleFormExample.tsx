@@ -19,16 +19,17 @@ type FormValues = {
   category: string;
 };
 
-const BasicFormExample = () => {
+const SimpleFormExample = () => {
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: { category: "" },
     mode: "onBlur",
   });
+
   const onSubmit = (data: FormValues) => alert(JSON.stringify(data));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Paper elevation={3} width={600}>
+      <Paper elevation={3} width='100%'>
         <Typography variant='h4' gutterBottom>
           React Hook Form
         </Typography>
@@ -114,4 +115,4 @@ const BasicFormExample = () => {
   );
 };
 
-export default BasicFormExample;
+export default SimpleFormExample;

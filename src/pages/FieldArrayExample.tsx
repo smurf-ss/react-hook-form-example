@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 
 import { useForm, useFieldArray, Control } from "react-hook-form";
 
@@ -25,15 +25,15 @@ const RenderHobby = ({
   control: Control<any>;
   name: string;
 }) => {
-  const { fields, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: `${name}.hobby`, // unique name for your Field Array
     // keyName: "id", default to "id", you can change the key name
   });
 
   const onAddHobby = useCallback(() => {
-    prepend("");
-  }, [prepend]);
+    append("");
+  }, [append]);
 
   const onDeleteHobby = useCallback(
     (index: number) => () => {
@@ -58,17 +58,13 @@ const RenderHobby = ({
       {fields.map((field, index) => {
         return (
           <Grid item xs={12}>
-            <Grid
-              container
-              spacing={1}
-              justify='space-between'
-              alignItems='flex-end'>
-              <Grid item>
+            <Grid container spacing={1} justify='center' alignItems='flex-end'>
+              <Grid item xs={1}>
                 <Typography variant='subtitle1' gutterBottom>
                   Hobby # {index + 1}
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item xs={8}>
                 <Input
                   control={control}
                   name={`${name}.hobby.${index}`}
@@ -92,7 +88,7 @@ const RenderHobby = ({
 };
 
 const RenderMember = ({ control }: { control: Control<any> }) => {
-  const { fields, prepend, remove, append } = useFieldArray({
+  const { fields, remove, append } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "member", // unique name for your Field Array
     // keyName: "id", default to "id", you can change the key name
@@ -119,7 +115,7 @@ const RenderMember = ({ control }: { control: Control<any> }) => {
 
       {fields.map((field, index) => {
         return (
-          <Grid item xs={10} key={field.id}>
+          <Grid item xs={12} key={field.id}>
             <Paper width={"100%"}>
               <Grid container spacing={3} justify='space-between'>
                 <Grid item>
@@ -173,7 +169,7 @@ const FieldArrayExample = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Paper elevation={3} width={600}>
+      <Paper elevation={3} width='100%'>
         <Typography variant='h4' gutterBottom>
           React Hook Form
         </Typography>
@@ -184,7 +180,7 @@ const FieldArrayExample = () => {
           Integrating with Material UI
         </Typography>
         <Grid container spacing={6} justify='center'>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <Input
               control={control}
               name='clubName'
@@ -194,11 +190,16 @@ const FieldArrayExample = () => {
               }}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <RenderMember control={control} />
           </Grid>
         </Grid>
       </Paper>
+      <Grid container justify='flex-end' item style={{ paddingTop: 20 }}>
+        <Button variant='contained' color='primary' type='submit'>
+          submit
+        </Button>
+      </Grid>
     </form>
   );
 };
