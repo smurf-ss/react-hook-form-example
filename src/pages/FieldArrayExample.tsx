@@ -4,11 +4,12 @@ import { useForm, useFieldArray, Control } from "react-hook-form";
 
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
 
 import Input from "../components/atoms/Input";
 import Paper from "../components/Paper";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 
 type MemberOptions = { firstName: string; lastName: string; hobby: string[] };
 
@@ -42,7 +43,12 @@ const RenderHobby = ({
   );
 
   return (
-    <Grid container spacing={3} justify='center' direction='column'>
+    <Grid
+      container
+      spacing={1}
+      justify='center'
+      direction='column'
+      style={{ paddingTop: 10, paddingBottom: 10 }}>
       <Grid item xs={4}>
         <Button variant='contained' color='primary' onClick={onAddHobby}>
           Add Hobby
@@ -51,24 +57,33 @@ const RenderHobby = ({
 
       {fields.map((field, index) => {
         return (
-          <Grid item xs={10}>
-            <Paper elevation={3} key={field.id} width={"100%"}>
-              <Button
-                variant='contained'
-                color='secondary'
-                onClick={onDeleteHobby(index)}
-                startIcon={<DeleteIcon />}>
-                Delete
-              </Button>
-              <Input
-                control={control}
-                name={`${name}.hobby.${index}`}
-                required={true}
-                inputProps={{
-                  label: `Hobby # ${index + 1}`,
-                }}
-              />
-            </Paper>
+          <Grid item xs={12}>
+            <Grid
+              container
+              spacing={1}
+              justify='space-between'
+              alignItems='flex-end'>
+              <Grid item>
+                <Typography variant='subtitle1' gutterBottom>
+                  Hobby # {index + 1}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Input
+                  control={control}
+                  name={`${name}.hobby.${index}`}
+                  required={true}
+                  inputProps={{
+                    label: `Hobby # ${index + 1}`,
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <IconButton onClick={onDeleteHobby(index)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Grid>
         );
       })}
@@ -77,15 +92,15 @@ const RenderHobby = ({
 };
 
 const RenderMember = ({ control }: { control: Control<any> }) => {
-  const { fields, prepend, remove } = useFieldArray({
+  const { fields, prepend, remove, append } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "member", // unique name for your Field Array
     // keyName: "id", default to "id", you can change the key name
   });
 
   const onAddMember = useCallback(() => {
-    prepend({ firstName: "", lastName: "" });
-  }, [prepend]);
+    append({ firstName: "", lastName: "" });
+  }, [append]);
 
   const onDeleteMember = useCallback(
     (index: number) => () => {
@@ -104,41 +119,44 @@ const RenderMember = ({ control }: { control: Control<any> }) => {
 
       {fields.map((field, index) => {
         return (
-          <React.Fragment key={field.id}>
-            <Grid item xs={10}>
-              <Paper elevation={3} width={"100%"}>
-                <Typography variant='h5' gutterBottom>
-                  Member # {index + 1}
-                </Typography>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  onClick={onDeleteMember(index)}
-                  startIcon={<DeleteIcon />}>
-                  Delete
-                </Button>
-                <Input
-                  control={control}
-                  name={`member.${index}.firstName`}
-                  required={true}
-                  inputProps={{
-                    label: "firstName",
-                  }}
-                />
-                <Input
-                  control={control}
-                  name={`member.${index}.lastName`}
-                  required={true}
-                  inputProps={{
-                    label: "LastName",
-                  }}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xs={10}>
+          <Grid item xs={10} key={field.id}>
+            <Paper width={"100%"}>
+              <Grid container spacing={3} justify='space-between'>
+                <Grid item>
+                  <Typography variant='h5' gutterBottom>
+                    Member # {index + 1}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={onDeleteMember(index)}
+                    startIcon={<DeleteIcon />}>
+                    Delete
+                  </Button>
+                </Grid>
+              </Grid>
+              <Input
+                control={control}
+                name={`member.${index}.firstName`}
+                required={true}
+                inputProps={{
+                  label: "firstName",
+                }}
+              />
+              <Input
+                control={control}
+                name={`member.${index}.lastName`}
+                required={true}
+                inputProps={{
+                  label: "LastName",
+                }}
+              />
+
               <RenderHobby control={control} name={`member.${index}`} />
-            </Grid>
-          </React.Fragment>
+            </Paper>
+          </Grid>
         );
       })}
     </Grid>
@@ -156,6 +174,15 @@ const FieldArrayExample = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Paper elevation={3} width={600}>
+        <Typography variant='h4' gutterBottom>
+          React Hook Form
+        </Typography>
+        <Typography variant='h5' gutterBottom>
+          Field Arrays Example
+        </Typography>
+        <Typography variant='h6' gutterBottom>
+          Integrating with Material UI
+        </Typography>
         <Grid container spacing={6} justify='center'>
           <Grid item xs={10}>
             <Input

@@ -29,8 +29,11 @@ const BasicFormExample = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Paper elevation={3} width={600}>
+        <Typography variant='h4' gutterBottom>
+          React Hook Form
+        </Typography>
         <Typography variant='h5' gutterBottom>
-          React Hook Form Basic
+          Basic Example
         </Typography>
         <Typography variant='h6' gutterBottom>
           Integrating with Material UI
