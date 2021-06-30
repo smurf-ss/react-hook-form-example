@@ -82,15 +82,17 @@ const Drawer: React.FC<any> = ({ children, window }) => {
     <div>
       <div className={classes.toolbar} style={{ padding: 20 }}>
         <Typography variant='h5' noWrap>
-          rossarin.dev
+          React hook form
         </Typography>
+        <Typography noWrap>Integrating with Material UI</Typography>
+        <Typography noWrap>rossarin.dev</Typography>
         <Typography noWrap>v1</Typography>
       </div>
       <Divider />
       <List
         subheader={
           <ListSubheader component='div' id='nested-list-subheader'>
-            Examples Form
+            Examples
           </ListSubheader>
         }>
         {routes.map((route, index) => (

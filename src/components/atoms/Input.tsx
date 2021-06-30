@@ -15,6 +15,7 @@ type InputProps = {
   inputProps?: InputMaterialProps & { label?: string };
   required?: boolean | { required: boolean; message: string };
   validates?: FunctionValidate[];
+  defaultValue?: any;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -23,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   inputProps,
   required = false,
   validates = [],
+  defaultValue = "",
 }) => {
   const isRequired =
     typeof required === "boolean" ? required : required.required;
@@ -55,7 +57,7 @@ const Input: React.FC<InputProps> = ({
         ...validateObject,
       },
     },
-    defaultValue: "",
+    defaultValue,
   });
 
   // console.log("rendering", name, fieldInput);
@@ -65,7 +67,9 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <FormControl error={isValid} fullWidth={true}>
-      <InputLabel required={isRequired}>{inputProps?.label}</InputLabel>
+      <InputLabel required={isRequired && !!inputProps?.label}>
+        {inputProps?.label}
+      </InputLabel>
       <InputMaterial {...fieldInput} inputRef={ref} {...inputProps} />
       <FormHelperText error={isValid}>{error?.message}</FormHelperText>
     </FormControl>

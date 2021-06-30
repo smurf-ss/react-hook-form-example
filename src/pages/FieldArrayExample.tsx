@@ -177,14 +177,9 @@ const FieldArrayExample = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Paper elevation={3} width='100%'>
         <Typography variant='h4' gutterBottom>
-          React Hook Form
-        </Typography>
-        <Typography variant='h5' gutterBottom>
           Field Arrays Example
         </Typography>
-        <Typography variant='h6' gutterBottom>
-          Integrating with Material UI
-        </Typography>
+
         <Grid container spacing={6} justify='center'>
           <Grid item xs={12}>
             <Input

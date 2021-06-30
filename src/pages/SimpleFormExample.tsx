@@ -36,13 +36,7 @@ const SimpleFormExample = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Paper elevation={3} width='100%'>
         <Typography variant='h4' gutterBottom>
-          React Hook Form
-        </Typography>
-        <Typography variant='h5' gutterBottom>
-          Basic Example
-        </Typography>
-        <Typography variant='h6' gutterBottom>
-          Integrating with Material UI
+          Simple Form Example
         </Typography>
         <Grid container>
           <Grid item xs={12}>

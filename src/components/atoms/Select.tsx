@@ -24,6 +24,7 @@ type SelectProps = {
   keyNameOptionLabel?: keyof SelectOptions;
   keyNameOptionValue?: keyof SelectOptions;
   optionEmptyLabel?: string;
+  defaultValue?: any;
 };
 
 const Select: React.FC<SelectProps> = ({
@@ -36,6 +37,7 @@ const Select: React.FC<SelectProps> = ({
   keyNameOptionValue = "value",
   optionEmptyLabel = "None",
   options = [],
+  defaultValue = "",
 }) => {
   const isRequired =
     typeof required === "boolean" ? required : required.required;
@@ -68,7 +70,7 @@ const Select: React.FC<SelectProps> = ({
         ...validateObject,
       },
     },
-    defaultValue: "",
+    defaultValue,
   });
 
   const isValid =
@@ -76,7 +78,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <FormControl fullWidth={true} error={isValid}>
-      <InputLabel required={isRequired} shrink>
+      <InputLabel required={isRequired && !!selectProps?.label} shrink>
         {selectProps?.label}
       </InputLabel>
       <SelectMaterial
