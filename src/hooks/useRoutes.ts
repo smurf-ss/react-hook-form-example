@@ -2,9 +2,9 @@ import { useMemo } from "react";
 
 import routes from "@routes/routes";
 
-type UseRoutesProps = { isDrawer?: boolean };
+type UseRoutesProps = { isDrawer?: boolean } | undefined;
 
-const useRoutes = (props: UseRoutesProps) => {
+const useRoutes = (props: UseRoutesProps = {}) => {
   const { isDrawer = false } = props;
 
   const renewRoutes = useMemo(() => {

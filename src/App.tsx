@@ -7,7 +7,7 @@ import Drawer from "@components/Drawer";
 import useRoutes from "@hooks/useRoutes";
 
 function App() {
-  const routes = useRoutes({});
+  const routes = useRoutes();
 
   return (
     <Drawer>
