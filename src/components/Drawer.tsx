@@ -96,6 +96,7 @@ const Drawer: React.FC<any> = ({ children, window }) => {
         {routes.map((route, index) => (
           <Link
             to={route.path}
+            key={route.path}
             style={{ textDecoration: "none", color: "#3f51b5" }}>
             <ListItem
               button

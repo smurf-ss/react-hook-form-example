@@ -24,7 +24,6 @@ const Input: React.FC<InputProps> = ({
   required = false,
   validates = [],
 }) => {
-  console.log("rendering", name);
   const isRequired =
     typeof required === "boolean" ? required : required.required;
 
@@ -58,6 +57,8 @@ const Input: React.FC<InputProps> = ({
     },
     defaultValue: "",
   });
+
+  // console.log("rendering", name, fieldInput);
 
   const isValid =
     (!!error?.message && isTouched) || (!!error?.message && invalid);

@@ -159,13 +159,19 @@ const RenderMember = ({ control }: { control: Control<any> }) => {
   );
 };
 
+const useFieldArrayExample = () => {
+  const onSubmit = (data: FieldArrayValues) => alert(JSON.stringify(data));
+
+  return { onSubmit };
+};
+
 const FieldArrayExample = () => {
   const { control, handleSubmit } = useForm<FieldArrayValues>({
     defaultValues: { member: [] },
     mode: "onBlur",
   });
 
-  const onSubmit = (data: FieldArrayValues) => alert(JSON.stringify(data));
+  const { onSubmit } = useFieldArrayExample();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -19,13 +19,18 @@ type FormValues = {
   category: string;
 };
 
+const useSimpleFormExample = () => {
+  const onSubmit = (data: FormValues) => alert(JSON.stringify(data));
+  return { onSubmit };
+};
+
 const SimpleFormExample = () => {
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, reset, getValues } = useForm<FormValues>({
     defaultValues: { category: "" },
     mode: "onBlur",
   });
 
-  const onSubmit = (data: FormValues) => alert(JSON.stringify(data));
+  const { onSubmit } = useSimpleFormExample();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,9 +112,30 @@ const SimpleFormExample = () => {
           </Grid>
         </Grid>
         <FieldWatched control={control} name='email' />
-        <Button variant='contained' color='primary' type='submit'>
-          submit
-        </Button>
+        <Grid container justify='flex-end' spacing={2}>
+          <Grid item>
+            <Button variant='contained' color='primary' type='submit'>
+              submit
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant='outlined'
+              onClick={() => {
+                console.log("getValues", getValues());
+
+                reset({
+                  firstName: "",
+                  lastName: "",
+                  email: "",
+                  age: "",
+                  category: "",
+                });
+              }}>
+              Clear
+            </Button>
+          </Grid>
+        </Grid>
       </Paper>
     </form>
   );
