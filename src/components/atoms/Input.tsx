@@ -7,7 +7,7 @@ import InputMaterial, {
   InputProps as InputMaterialProps,
 } from "@material-ui/core/Input";
 
-import { textRequiredValidate } from "../../utils/hook-form-validator";
+import { textRequiredValidate } from "@utils/hook-form-validator";
 
 type InputProps = {
   name: string;

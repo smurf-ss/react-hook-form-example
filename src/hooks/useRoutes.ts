@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import routes from "../routes/routes";
+
+import routes from "@routes/routes";
 
 type UseRoutesProps = { isDrawer?: boolean };
 

@@ -1,10 +1,10 @@
 import { Switch } from "react-router-dom";
 
-import RouteWithSubRoutes from "./routes/RouteWithSubRoutes";
+import RouteWithSubRoutes from "@routes/RouteWithSubRoutes";
 
-import Drawer from "./components/Drawer";
+import Drawer from "@components/Drawer";
 
-import useRoutes from "./hooks/useRoutes";
+import useRoutes from "@hooks/useRoutes";
 
 function App() {
   const routes = useRoutes({});

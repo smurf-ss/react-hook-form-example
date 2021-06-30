@@ -4,12 +4,12 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-import Select from "../components/atoms/Select";
-import Input from "../components/atoms/Input";
-import FieldWatched from "../components/hook-form/FieldWatched";
-import Paper from "../components/Paper";
+import Select from "@components/atoms/Select";
+import Input from "@components/atoms/Input";
+import FieldWatched from "@components/hook-form/FieldWatched";
+import Paper from "@components/Paper";
 
-import { formatEmailValidate } from "../utils/hook-form-validator";
+import { formatEmailValidate } from "@utils/hook-form-validator";
 
 type FormValues = {
   firstName: string;

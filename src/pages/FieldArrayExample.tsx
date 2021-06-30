@@ -8,8 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 
-import Input from "../components/atoms/Input";
-import Paper from "../components/Paper";
+import Input from "@components/atoms/Input";
+import Paper from "@components/Paper";
 
 type MemberOptions = { firstName: string; lastName: string; hobby: string[] };
 

@@ -1,5 +1,6 @@
-import SimpleFormExample from "../pages/SimpleFormExample";
-import FieldArrayExample from "../pages/FieldArrayExample";
+import SimpleFormExample from "@pages/SimpleFormExample";
+import FieldArrayExample from "@pages/FieldArrayExample";
+import TableEditorExample from "@pages/TableEditorExample";
 
 export type Routes = {
   path: string;
@@ -28,6 +29,13 @@ const routes: Routes[] = [
     title: "Field Arrays",
     path: "/field-arrays",
     component: FieldArrayExample,
+    isDrawer: true,
+    exact: false,
+  },
+  {
+    title: "Table Editor",
+    path: "/table-editor",
+    component: TableEditorExample,
     isDrawer: true,
     exact: false,
   },
